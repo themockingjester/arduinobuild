@@ -18,6 +18,7 @@
 
             right_action_items: [["dots-vertical", lambda x: app.callback()]]
             md_bg_color:C('#9dad7f')
+
         BoxLayout:
             orientation:"horizontal"
             padding:[0,20,0,20]
@@ -40,18 +41,67 @@
                     id: button1
 
                     text:"[size=30]+[/size] Equipments"
-                    on_release: app.menu.open()
+                    on_release: app.menuk.open()
                 LeftTrayButton:
                     id: button
                     text:"[size=30]+[/size] Sensors"
-                    on_release: app.menu.open()
+                    on_release: app.menuk.open()
+                LeftTrayButton:
+                    id: button
+                    text:"Open"
+                    on_release: app.menuk.open()
 
 
                 BoxLayout:
 
+            BoxLayout:
+                orientation:"vertical"
+                BoxLayout:
+                    size_hint:(1,0.2)
+                    padding:20
+                    spacing:30
+                    BoxLayout:
 
-            MDLabel:
-                text: "[b]Hello [color=ff0000]world[/color][/b]"
-                markup: True
-                halign: "center"
+                    MDFloatingActionButton:
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon:"pencil"
+                        md_bg_color: C("#70af85")
+                    MDFloatingActionButton:
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon:"eraser"
+                        md_bg_color: app.theme_cls.primary_color
+                    MDFloatingActionButton:
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon:"undo"
+                        md_bg_color: app.theme_cls.primary_color
+                    MDFloatingActionButton:
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon:"redo"
+                        md_bg_color: app.theme_cls.primary_color
+                    MDFloatingActionButton:
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon:"clipboard-plus"
+                        md_bg_color: app.theme_cls.primary_color
+                    MDFloatingActionButton:
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        icon:"delete"
+                        md_bg_color: C("#f05454")
+                BoxLayout:
+                    size_hint:(1,0.9)
+
+                    ScrollView:
+                        BoxLayout:
+                            id:lay
+                            orientation: "vertical"
+                            size_hint_y: None
+
+                            height: self.minimum_height  #<<<<<<<<<<<<<<<<<<<<
+                            row_default_height: 180
+                            cols:4
+                            padding:20
+                            spacing:20
+                            MDLabel:
+                                text: "[b]Hello [color=ff0000]world[/color][/b]"
+                                markup: True
+                                halign: "center"
 
