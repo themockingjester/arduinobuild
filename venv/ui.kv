@@ -1,0 +1,57 @@
+#:import C kivy.utils.get_color_from_hex
+<LeftTrayButton@MDRaisedButton>:
+    pos_hint: {"center_x": 1.5, "center_y": .5}
+    markup:True
+    font_name:"pacifico"
+    font_size:15
+    size_hint:(2.5,0.1)
+<BuilderWindow>:
+    button:button
+    button1:button1
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar:
+
+            title: "ArduinoBuild"
+
+
+            right_action_items: [["dots-vertical", lambda x: app.callback()]]
+            md_bg_color:C('#9dad7f')
+        BoxLayout:
+            orientation:"horizontal"
+            padding:[0,20,0,20]
+            BoxLayout:
+
+                orientation:"vertical"
+                spacing:40
+                padding:[0,20,0,20]
+                size_hint:(0.03,1)
+
+                canvas.before:
+                    Color:
+
+                        rgba :  rgba("#282828")
+                    Rectangle:
+
+                        pos: self.pos
+                        size:self.size
+                LeftTrayButton:
+                    id: button1
+
+                    text:"[size=30]+[/size] Equipments"
+                    on_release: app.menu.open()
+                LeftTrayButton:
+                    id: button
+                    text:"[size=30]+[/size] Sensors"
+                    on_release: app.menu.open()
+
+
+                BoxLayout:
+
+
+            MDLabel:
+                text: "[b]Hello [color=ff0000]world[/color][/b]"
+                markup: True
+                halign: "center"
+
