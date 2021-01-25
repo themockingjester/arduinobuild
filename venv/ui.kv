@@ -1,5 +1,10 @@
 #:import C kivy.utils.get_color_from_hex
 <TooltipMDIconButton@MDFloatingActionButton+MDTooltip>
+<DraggableImageButtonWithDoubleTouch>:
+    # Define the properties for the DragLabel
+    drag_rectangle: self.x, self.y, self.width, self.height
+    drag_timeout: 10000000
+    drag_distance: 0
 <PencilSizeChanger>:
     BoxLayout:
         padding:[0,0,0,20]
@@ -36,7 +41,7 @@
 
             title: "ArduinoBuild"
 
-
+            left_action_items: [["robot", lambda x: app.callback()]]
             right_action_items: [["lock", lambda x: app.callback()],["dots-vertical", lambda x: app.callback()]]
             md_bg_color:C('#00917c')                                            #9dad7f
 
@@ -65,7 +70,7 @@
                 LeftTrayButton:
 
                     text:"Save"
-
+                    on_release:app.image_adder()
                 LeftTrayButton:
                     id: button1
 
@@ -137,7 +142,8 @@
                         BoxLayout:
                             id:container
                             orientation: "vertical"
-                            size_hint:(1,0.9)
-                            padding:20
-                            spacing:20
+                            size_hint_y: None
+
+                            height: self.minimum_height  #<<<<<<<<<<<<<<<<<<<<
+                            row_default_height: 1600
 
