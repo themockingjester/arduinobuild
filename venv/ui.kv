@@ -1,4 +1,24 @@
 #:import C kivy.utils.get_color_from_hex
+<TooltipMDIconButton@MDFloatingActionButton+MDTooltip>
+<PencilSizeChanger>:
+    BoxLayout:
+        padding:[0,0,0,20]
+        BoxLayout:
+
+        BoxLayout:
+
+            size_hint:(0.6,0.7)
+
+            MDIconButton:
+                icon:"minus"
+            Label:
+                bold:True
+                color: C("#0a043c")
+                text:"Pencil Size:1"
+            MDIconButton:
+                icon:"plus"
+
+
 <LeftTrayButton@MDRaisedButton>:
     pos_hint: {"center_x": 1.5, "center_y": .5}
     markup:True
@@ -7,6 +27,7 @@
     size_hint:(2.5,0.1)
 <BuilderWindow>:
     button:button
+    container:container
     button1:button1
     MDBoxLayout:
         orientation: "vertical"
@@ -16,8 +37,8 @@
             title: "ArduinoBuild"
 
 
-            right_action_items: [["dots-vertical", lambda x: app.callback()]]
-            md_bg_color:C('#9dad7f')
+            right_action_items: [["lock", lambda x: app.callback()],["dots-vertical", lambda x: app.callback()]]
+            md_bg_color:C('#00917c')                                            #9dad7f
 
         BoxLayout:
             orientation:"horizontal"
@@ -38,18 +59,23 @@
                         pos: self.pos
                         size:self.size
                 LeftTrayButton:
+                    id: button
+                    text:"Open"
+                    on_release: app.menu.open()
+                LeftTrayButton:
+
+                    text:"Save"
+
+                LeftTrayButton:
                     id: button1
 
                     text:"[size=30]+[/size] Equipments"
-                    on_release: app.menuk.open()
+
                 LeftTrayButton:
-                    id: button
+
                     text:"[size=30]+[/size] Sensors"
-                    on_release: app.menuk.open()
-                LeftTrayButton:
-                    id: button
-                    text:"Open"
-                    on_release: app.menuk.open()
+
+
 
 
                 BoxLayout:
@@ -62,46 +88,56 @@
                     spacing:30
                     BoxLayout:
 
-                    MDFloatingActionButton:
+                    PencilSizeChanger:
+                    TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
+                        tooltip_text: self.icon
                         icon:"pencil"
                         md_bg_color: C("#70af85")
-                    MDFloatingActionButton:
+                    TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"eraser"
+                        tooltip_text: self.icon
                         md_bg_color: app.theme_cls.primary_color
-                    MDFloatingActionButton:
+                    TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"undo"
+                        tooltip_text: self.icon
                         md_bg_color: app.theme_cls.primary_color
-                    MDFloatingActionButton:
+                    TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"redo"
+                        tooltip_text: self.icon
                         md_bg_color: app.theme_cls.primary_color
-                    MDFloatingActionButton:
+                    TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"clipboard-plus"
+                        tooltip_text: "new page"
                         md_bg_color: app.theme_cls.primary_color
-                    MDFloatingActionButton:
+                    TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"delete"
+                        tooltip_text: self.icon
                         md_bg_color: C("#f05454")
+
                 BoxLayout:
-                    size_hint:(1,0.9)
+                    size_hint:(1,1)
+                    padding:[90,20,10,7]
+                    border:[25,25,25,25]
 
                     ScrollView:
-                        BoxLayout:
-                            id:lay
-                            orientation: "vertical"
-                            size_hint_y: None
+                        canvas.before:
+                            Color:
 
-                            height: self.minimum_height  #<<<<<<<<<<<<<<<<<<<<
-                            row_default_height: 180
-                            cols:4
+                                rgba :  rgba("#30475e")
+                            Line:
+                                width: 2
+
+                                rectangle: self.x, self.y, self.width, self.height
+                        BoxLayout:
+                            id:container
+                            orientation: "vertical"
+                            size_hint:(1,0.9)
                             padding:20
                             spacing:20
-                            MDLabel:
-                                text: "[b]Hello [color=ff0000]world[/color][/b]"
-                                markup: True
-                                halign: "center"
 
