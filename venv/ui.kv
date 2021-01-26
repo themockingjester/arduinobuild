@@ -128,9 +128,12 @@
                 BoxLayout:
                     size_hint:(1,1)
                     padding:[90,20,10,7]
+
                     border:[25,25,25,25]
 
                     ScrollView:
+                        bar_color : rgba("#30475e")
+                        bar_width: 7
                         canvas.before:
                             Color:
 
@@ -139,11 +142,16 @@
                                 width: 2
 
                                 rectangle: self.x, self.y, self.width, self.height
-                        BoxLayout:
+
+                        FloatLayout:
+
+
+                            size:(self.parent.width,self.parent.height*2)
                             id:container
                             orientation: "vertical"
                             size_hint_y: None
 
-                            height: self.minimum_height  #<<<<<<<<<<<<<<<<<<<<
+                            #height: self.minimum_height  #<<<<<<<<<<<<<<<<<<<<
                             row_default_height: 1600
+
 
