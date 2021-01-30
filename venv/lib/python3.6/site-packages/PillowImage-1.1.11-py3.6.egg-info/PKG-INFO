@@ -1,0 +1,13 @@
+Metadata-Version: 1.2
+Name: PillowImage
+Version: 1.1.11
+Summary: Pillow wrapper for quick image alterations.
+Home-page: https://github.com/sfneal/PillowImage
+Author: Stephen Neal
+Author-email: stephen@stephenneal.net
+License: MIT
+Description: 
+        Pure Python Pillow package wrapper.
+        
+Platform: UNKNOWN
+Requires-Python: >=3.6

@@ -1,27 +1,104 @@
 #:import C kivy.utils.get_color_from_hex
 <TooltipMDIconButton@MDFloatingActionButton+MDTooltip>
+<TooltipMDOnlyIconButton@MDIconButton+MDTooltip>
+
+
 <DraggableImageButtonWithDoubleTouch>:
     # Define the properties for the DragLabel
     drag_rectangle: self.x, self.y, self.width, self.height
     drag_timeout: 10000000
     drag_distance: 0
+<UpperUtilityTray>:
+    BoxLayout:
+
+        size_hint_x: None
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        size_hint_y:1
+        width: self.minimum_width
+        canvas.before:
+            Color:
+
+                rgba :  app.upper_utilitytray_color
+            Line:
+                width: 2
+
+                rectangle: self.x, self.y, self.width, self.height
+        GridLayout:
+            rows:2
+            cols:8
+            row_force_default: True
+            row_default_height: 45
+            size_hint_x: None
+            width: self.minimum_width
+
+
+
+
+
+
+            TooltipMDOnlyIconButton:
+                icon:"arrow-expand-vertical"
+                on_release: app.page_size_increaser(self)
+                tooltip_text:"expand page vertically"
+            TooltipMDOnlyIconButton:
+                icon:"format-color-fill"
+                tooltip_text:"pencil color"
+            TooltipMDOnlyIconButton:
+                icon:"undo"
+                tooltip_text:"undo"
+            TooltipMDOnlyIconButton:
+                icon:"redo"
+                tooltip_text:"redo"
+            TooltipMDOnlyIconButton:
+                icon:"rotate-right"
+                tooltip_text:"rotate image right"
+                on_release: app.rotate_image_right()
+            TooltipMDOnlyIconButton:
+                icon:"rotate-left"
+                tooltip_text:"rotate image left"
+                on_release:app.rotate_image_left()
+            TooltipMDOnlyIconButton:
+                icon:"image"
+                tooltip_text:"convert to image"
+                on_release: app.convert_to_png(self)
+            TooltipMDOnlyIconButton:
+                icon:"lightbulb-on-outline"
+                tooltip_text:"dark mode"
+                on_release: app.application_look_settings(self)
+            TooltipMDOnlyIconButton:
+                icon:"volume-high"
+                tooltip_text:"dark mode"
+            TooltipMDOnlyIconButton:
+                icon:"pipe-disconnected"
+                tooltip_text:"dislocate image"
+                theme_text_color: "Primary"
+
+                on_release: app.dragfunctionality(self)
+            TooltipMDOnlyIconButton:
+                icon:"rotate-3d-variant"
+                tooltip_text:"image rotation"
+                on_release: app.rotation_enabler(self)
 <PencilSizeChanger>:
     BoxLayout:
-        padding:[0,0,0,20]
-        BoxLayout:
+        size_hint:(None,1)
+        width:170
+        canvas.before:
+            Color:
 
-        BoxLayout:
+                rgba :  rgba("#FFFFFF")
+            Rectangle:
 
-            size_hint:(0.6,0.7)
+                pos: self.pos
+                size:self.size
+        MDIconButton:
+            icon:"minus"
+        Label:
 
-            MDIconButton:
-                icon:"minus"
-            Label:
-                bold:True
-                color: C("#0a043c")
-                text:"Pencil Size:1"
-            MDIconButton:
-                icon:"plus"
+            bold:True
+            color: C("#0a043c")
+            text:"Pencil Size:1"
+        MDIconButton:
+            icon:"plus"
 
 
 <LeftTrayButton@MDRaisedButton>:
@@ -31,9 +108,13 @@
     font_size:15
     size_hint:(2.5,0.1)
 <BuilderWindow>:
-    button:button
+    openbutton:openbutton
     container:container
-    button1:button1
+
+    additionalmodulesbutton:additionalmodulesbutton
+    savebutton:savebutton
+    basiceqbutton:basiceqbutton
+    sensorsbutton:sensorsbutton
     MDBoxLayout:
         orientation: "vertical"
 
@@ -50,6 +131,7 @@
             padding:[0,20,0,20]
             BoxLayout:
 
+                color_of_canvas: app.left_tray_color
                 orientation:"vertical"
                 spacing:40
                 padding:[0,20,0,20]
@@ -58,27 +140,33 @@
                 canvas.before:
                     Color:
 
-                        rgba :  rgba("#282828")
+                        rgba :  app.left_tray_color
                     Rectangle:
 
                         pos: self.pos
                         size:self.size
                 LeftTrayButton:
-                    id: button
+                    id: openbutton
                     text:"Open"
                     on_release: app.menu.open()
-                LeftTrayButton:
 
+                LeftTrayButton:
+                    id:savebutton
                     text:"Save"
                     on_release:app.image_adder()
-                LeftTrayButton:
-                    id: button1
-
-                    text:"[size=30]+[/size] Equipments"
 
                 LeftTrayButton:
+                    id: basiceqbutton
 
+                    text:"[size=30]+[/size] Basic eq."
+
+                LeftTrayButton:
+                    id: sensorsbutton
                     text:"[size=30]+[/size] Sensors"
+
+                LeftTrayButton:
+                    id:additionalmodulesbutton
+                    text:"more modules"
 
 
 
@@ -93,7 +181,19 @@
                     spacing:30
                     BoxLayout:
 
-                    PencilSizeChanger:
+                    UpperUtilityTray:
+                    MDSpinner:
+                        size_hint: None, None
+                        size: dp(46), dp(46)
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                        active: True
+                    MDRoundFlatButton:
+                        text: "Images on Workarea:  1"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        theme_text_color: "Custom"
+                        text_color: rgba("#2DA8D8FF")
+
+                        #md_bg_color: C("#726a95")
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         tooltip_text: self.icon
@@ -104,16 +204,7 @@
                         icon:"eraser"
                         tooltip_text: self.icon
                         md_bg_color: app.theme_cls.primary_color
-                    TooltipMDIconButton:
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        icon:"undo"
-                        tooltip_text: self.icon
-                        md_bg_color: app.theme_cls.primary_color
-                    TooltipMDIconButton:
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        icon:"redo"
-                        tooltip_text: self.icon
-                        md_bg_color: app.theme_cls.primary_color
+
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"clipboard-plus"
@@ -132,12 +223,12 @@
                     border:[25,25,25,25]
 
                     ScrollView:
-                        bar_color : rgba("#30475e")
+                        bar_color : app.bar_color
                         bar_width: 7
                         canvas.before:
                             Color:
 
-                                rgba :  rgba("#30475e")
+                                rgba : app.workspace_boundary_color
                             Line:
                                 width: 2
 
@@ -146,7 +237,7 @@
                         FloatLayout:
 
 
-                            size:(self.parent.width,self.parent.height*2)
+                            size:(self.parent.width,self.parent.height)
                             id:container
                             orientation: "vertical"
                             size_hint_y: None
