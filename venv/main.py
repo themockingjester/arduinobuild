@@ -23,12 +23,19 @@ from kivymd.uix.behaviors import TouchBehavior
 class ImageButtonWithDoubleTouch(Image, TouchBehavior):
     pass
 
+class UpperUtilityTray(BoxLayout):
+    pass
+
+
+class PencilSizeChanger(BoxLayout):
+    pass
+
 
 class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTouch):
     def on_double_tap(self, instance, *args):
         pass
     def on_long_touch(self, touch, *args):
-        print(self)
+
         if uiApp.dragcounter == False:
             sound=SoundLoader.load('sounds/button.wav')
             if sound:
@@ -64,13 +71,6 @@ class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTou
 
         return True
     ############################## end #############################
-
-class UpperUtilityTray(BoxLayout):
-    pass
-
-
-class PencilSizeChanger(BoxLayout):
-    pass
 
 
 class BuilderWindow(MDBoxLayout):
@@ -142,8 +142,7 @@ class uiApp(MDApp):
         else:
             instance.theme_text_color = "Primary"
             uiApp.dragcounter = False
-    def selected(self):
-        print(self)
+
     def convert_to_png(self,instance):
         self.buildersccreen.container.export_to_png("yash.png")
 
@@ -197,37 +196,16 @@ class uiApp(MDApp):
         screen = Screen(name='builderscreen')
         screen.add_widget(self.buildersccreen)
         self.screen_manager.add_widget(screen)
-
-        # menu_items = [{"icon": "git",
-        #                "text": f"Item {i}",
-        #                "callback": self.selected} for i in range(5)]
-        # self.menu = MDDropdownMenu(
-        #     caller=self.buildersccreen.button,
-        #     items=menu_items,
-        #     width_mult=3,
-        # )
-        # self.menu.bind(on_release=self.menu_callback)
         self.application_look_settings(None)
         return self.screen_manager
 
     def image_adder(self):
-        # self.image_pos_holder = {}
-        for i in self.buildersccreen.container.children:
-            print(i)
 
         wimg = DraggableImageButtonWithDoubleTouch(source='images/sensors/arduino.png', width=400, size_hint_y=None,
                                                    size_hint_x=None, height=400)
         self.buildersccreen.container.add_widget(wimg)
-        # for i in self.buildersccreen.container.children:
-        #     try:
-        #         i.pos = (self.image_pos_holder.get(i)[0],self.image_pos_holder.get(i)[1])
-        #         print(i.pos)
-        #     except:
-        #         print("err")
 
-    def menu_callback(self, instance_menu, instance_menu_item):
-        print("hilk")
-        print(instance_menu, instance_menu_item)
+
 
 
 LabelBase.register(name='pacifico', fn_regular='fonts/Pacifico/Pacifico-Regular.ttf')
