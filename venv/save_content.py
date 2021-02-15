@@ -1,13 +1,7 @@
-import time
-
 from kivy.core.text import LabelBase
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.popup import Popup
 from kivymd.toast import toast
 from PIL import Image as Im
-from kivymd.uix.dialog import MDDialog
-from kivy.uix.button import Button
 from image_processing import ImageProcessing
 # from save_content import SavedDataManager
 # from drag import DragClass
@@ -41,50 +35,185 @@ class UpperUtilityTray(BoxLayout):
 class PencilSizeChanger(BoxLayout):
     pass
 
-class StraightWireHorizontal(Widget):
-    pass
-class StraightWireVertical(Widget):
-    pass
 
-
-class CShapedWireTop(Widget):
+class StraightWire(BoxLayout):
     pass
 
 
-class CShapedWireBottom(Widget):
+class CShapedWire(AnchorLayout):
+    container = ObjectProperty(None)
+
+
+class ElbowShapedWire(BoxLayout):
     pass
 
 
-class CShapedWireLeft(Widget):
+# class uiApp(MDApp):
+#     # kl = None
+#
+#     inc =100
+#     need_to_draw_with_pencil = False
+#     current_selected_widget = None
+#     left_tray_color = ObjectProperty(rgba("#282828"))
+#     bar_color = ObjectProperty(rgba("#282828"))
+#     dragcounter = False
+#     upper_utilitytray_color = ObjectProperty(rgba("#282828"))
+#     workspace_boundary_color = ObjectProperty(rgba("#30475e"))
+#     def page_size_increaser(self,instance):
+#
+#
+#         h = instance.parent.parent.parent.parent.parent.parent.parent.parent.container
+#         height = h.height
+#         h.size=(h.parent.width,height+h.parent.height)
+#
+#     # def wire_extender_horizontally(self):
+#     #
+#     #     if isinstance(uiApp.current_selected_widget,WireBase)== True:
+#     #
+#     #         uiApp.wireinitialwidth += 100
+#     #         uiApp.current_selected_widget.external_container.width = uiApp.wireinitialwidth
+#     #         print(uiApp.current_selected_widget)
+#
+#     def application_look_settings(self,instance):
+#         pencil_button_color_values = ["#70af85", "#70af85"]
+#         delete_button_color_values = ["#f05454", "#f05454"]
+#         workspace_boundary_color_values = ["#30475e", "#D6ED17FF"]
+#         left_tray_buttons_color_values = ["#00bcd4", "#f88f01"]
+#         left_tray_color_values = ["#282828","#00af91"]
+#         bar_color_values = ["#282828","#D6ED17FF"]
+#         upper_utility_tray_boundary_color_values = ["#00af91", "#D6ED17FF"]
+#         if self.mode == 0:
+#             self.mode += 1
+#         else:
+#             self.mode -= 1
+#         if self.mode == 0:
+#             self.theme_cls.theme_style = "Light"
+#             try:
+#                 instance.theme_text_color = "Primary"
+#             except:
+#                 pass
+#         else:
+#             self.theme_cls.theme_style = "Dark"
+#             self.upper_utilitytray_color = rgba(upper_utility_tray_boundary_color_values[self.mode])                #correct here allso
+#             try:
+#                 instance.theme_text_color = "Custom"
+#                 instance.text_color= self.upper_utilitytray_color
+#             except:
+#                 pass
+#         self.pencil_button_color = pencil_button_color_values[self.mode]
+#         self.delete_button_color = delete_button_color_values[self.mode]
+#
+#
+#         self.buildersccreen.openbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
+#         self.buildersccreen.savebutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
+#         self.buildersccreen.additionalmodulesbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
+#         self.buildersccreen.sensorsbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
+#         self.buildersccreen.basiceqbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
+#         self.left_tray_color = rgba(left_tray_color_values[self.mode])
+#         self.bar_color = rgba(bar_color_values[self.mode])
+#         self.upper_utilitytray_color = rgba(upper_utility_tray_boundary_color_values[self.mode])            #correctt here
+#         self.workspace_boundary_color = rgba(workspace_boundary_color_values[self.mode])
+#
+#     def dragfunctionality(self,instance):
+#         if uiApp.dragcounter == False:
+#             uiApp.dragcounter = True
+#             instance.theme_text_color = "Custom"
+#             instance.text_color= self.upper_utilitytray_color
+#         else:
+#             instance.theme_text_color = "Primary"
+#             uiApp.dragcounter = False
+#
+#     def convert_to_png(self,instance):
+#
+#         self.buildersccreen.container.export_to_png("yash.png")
+#
+#
+#
+#
+#
+#     def rotation_enabler(self,instance):
+#         if self.allow_image_rotation == False:
+#             self.allow_image_rotation = True
+#             instance.theme_text_color = "Custom"
+#             instance.text_color = self.upper_utilitytray_color
+#         else:
+#             instance.theme_text_color = "Primary"
+#             self.allow_image_rotation = False
+#
+#     def rotate_image_left(self):
+#         if  uiApp.current_selected_widget != None:
+#             if isinstance(uiApp.current_selected_widget,DraggableImageButtonWithDoubleTouch):
+#                 if self.allow_image_rotation == True:
+#                     obj = ImageProcessing(uiApp.current_selected_widget,90)
+#                     obj.rotate_left()
+#                 else:
+#                     if uiApp.current_selected_widget != None:
+#                         uiApp.current_selected_widget = None
+#             else:
+#                 pass
+#         else:
+#             toast("you havn't selected object")
+#     def rotate_image_right(self):
+#         if  uiApp.current_selected_widget != None:
+#             if isinstance(uiApp.current_selected_widget,DraggableImageButtonWithDoubleTouch):
+#                 if self.allow_image_rotation == True:
+#                     obj = ImageProcessing(uiApp.current_selected_widget,90)
+#                     obj.rotate_right()
+#                 else:
+#                     if uiApp.current_selected_widget != None:
+#                         uiApp.current_selected_widget = None
+#             else:
+#                 pass
+#         else:
+#             toast("you havn't selected object")
+#
+#     def pencil_drawing_enabler(self):
+#         if uiApp.need_to_draw_with_pencil == False:
+#             uiApp.need_to_draw_with_pencil = True
+#         else:
+#             uiApp.need_to_draw_with_pencil = False
+#     def key_tracker(self):
+#         with keyboard.Listener(on_press=self.on_press) as listener:
+#             listener.join()
+#     def on_press(self,key):
+#         uiApp.current_key = key
+#         print(key)
+#     def build(self):
+#         self.mode = 1  # 0 for light annd 1 for dark
+#         self.allow_image_rotation = False
+#
+#
+#         #keyboard_thread = threading.Thread(target=self.key_tracker)
+#         #keyboard_thread.start()
+#         self.screen_manager = ScreenManager()
+#
+#         self.buildersccreen = BuilderWindow()
+#         screen = Screen(name='builderscreen')
+#         screen.add_widget(self.buildersccreen)
+#         self.screen_manager.add_widget(screen)
+#         self.application_look_settings(None)
+#
+#         return self.screen_manager
+#     # def save_current_data(self):
+#     #     obj = SavedDataManager()
+#     #     obj.save_current_object(self.buildersccreen.container)
+#
+#     def image_adder(self):
+#
+#         # wimg = DraggableImageButtonWithDoubleTouch(source='images/sensors/arduino.png', width=400, size_hint_y=None,
+#         #                                            size_hint_x=None, height=400)
+#         # self.buildersccreen.container.add_widget(wimg,10)
+#         k = WireBase()
+#         self.buildersccreen.container.add_widget(k)
+#         #uiApp.kl = wimg
+
+class TouchableWireBase(BoxLayout, TouchBehavior):
     pass
 
 
-class CShapedWireRight(Widget):
-    pass
-
-
-class ElbowShapedUpperRightWire(Widget):
-    pass
-
-
-class ElbowShapedUpperLeftWire(Widget):
-    pass
-
-
-class ElbowShapedLowerLeftWire(Widget):
-    pass
-
-
-class ElbowShapedLowerRightWire(Widget):
-    clr = ObjectProperty(None)
-
-
-class TouchableWire(BoxLayout, TouchBehavior):
-    pass
-
-
-class DraggableWire(DragBehavior, TouchableWire):
-    wire = ObjectProperty(None)
+class WireBase(DragBehavior, TouchableWireBase):
+    cwire = ObjectProperty(None)
+    external_container = ObjectProperty(None)
 
     def on_touch_move(self, touch):
 
@@ -111,9 +240,9 @@ class DraggableWire(DragBehavior, TouchableWire):
             ud['mode'] = mode
         if mode == 'drag':
             if uiApp.dragcounter == True:  # my logic only this line
-                print("f")
-                self.parent.parent.x += touch.dx
-                self.parent.parent.y += touch.dy
+
+                self.x += touch.dx
+                self.y += touch.dy
 
         return True
 
@@ -126,12 +255,6 @@ class DraggableWire(DragBehavior, TouchableWire):
                 sound.play()
 
             uiApp.current_selected_widget = self
-            print(uiApp.current_selected_widget)
-
-
-class WireBase(BoxLayout):
-    cwire = ObjectProperty(None)
-    external_container = ObjectProperty(None)
 
 
 class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTouch):
@@ -188,13 +311,12 @@ class BuilderWindow(MDBoxLayout):
     basiceqbutton = ObjectProperty(None)
     container = ObjectProperty(None)
     savebutton = ObjectProperty(None)
-    addwiresbutton = ObjectProperty(None)
+    additionalmodulesbutton = ObjectProperty(None)
     commonid = ObjectProperty(None)
 
 
 class uiApp(MDApp):
-    dialog = None
-
+    # kl = None
     wireinitialheight = 40
     wireinitialwidth = 100
     need_to_draw_with_pencil = False
@@ -205,7 +327,9 @@ class uiApp(MDApp):
     upper_utilitytray_color = ObjectProperty(rgba("#282828"))
     workspace_boundary_color = ObjectProperty(rgba("#30475e"))
 
-
+    def color_chooser(self, instance):
+        clr_picker = ColorPicker(size_hint=(None, None), size=(500, 500))
+        instance.parent.parent.parent.parent.add_widget(clr_picker)
 
     def page_size_increaser(self, instance):
 
@@ -213,32 +337,27 @@ class uiApp(MDApp):
         height = h.height
         h.size = (h.parent.width, height + h.parent.height)
 
-    def wire_shrinker_vertically(self):
-        currentheight = uiApp.current_selected_widget.parent.parent.height
-        currentheight -= 5
-
-        uiApp.current_selected_widget.parent.parent.height = currentheight
-
     def wire_extender_vertically(self):
-        if 1 == 1:
-            currentheight = uiApp.current_selected_widget.parent.parent.height
-            currentheight += 5
+        if isinstance(uiApp.current_selected_widget, WireBase) == True:
+            currentheight = uiApp.current_selected_widget.external_container.height
+            currentheight += 50
 
-            uiApp.current_selected_widget.parent.parent.height = currentheight
+            currentspacing = uiApp.current_selected_widget.cwire.container.spacing
+            currentspacing -= 50
 
-    def wire_shrinker_horizontally(self):
-        currentwidth = uiApp.current_selected_widget.parent.parent.width
-        currentwidth -= 50
+            uiApp.current_selected_widget.cwire.container.spacing = currentspacing
 
-        uiApp.current_selected_widget.parent.parent.width = currentwidth
+            uiApp.current_selected_widget.external_container.height = currentheight
+            uiApp.current_selected_widget.height = currentheight
 
     def wire_extender_horizontally(self):
 
-        if 1 == 1:
-            currentwidth = uiApp.current_selected_widget.parent.parent.width
+        if isinstance(uiApp.current_selected_widget, WireBase) == True:
+            currentwidth = uiApp.current_selected_widget.external_container.width
             currentwidth += 50
 
-            uiApp.current_selected_widget.parent.parent.width = currentwidth
+            uiApp.current_selected_widget.external_container.width = currentwidth
+            uiApp.current_selected_widget.width = currentwidth
 
     def application_look_settings(self, instance):
         pencil_button_color_values = ["#70af85", "#70af85"]
@@ -272,7 +391,7 @@ class uiApp(MDApp):
 
         self.buildersccreen.openbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
         self.buildersccreen.savebutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
-        self.buildersccreen.addwiresbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
+        self.buildersccreen.additionalmodulesbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
         self.buildersccreen.sensorsbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
         self.buildersccreen.basiceqbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
         self.left_tray_color = rgba(left_tray_color_values[self.mode])
@@ -344,7 +463,6 @@ class uiApp(MDApp):
         print(key)
 
     def build(self):
-
         self.mode = 1  # 0 for light annd 1 for dark
         self.allow_image_rotation = False
 
@@ -358,145 +476,20 @@ class uiApp(MDApp):
         self.screen_manager.add_widget(screen)
         self.application_look_settings(None)
 
-        sensors_menu_items = [{"text": "arduino"}, {"text": "HC-SR04-Ultrasonic-Sensor"}, {"text": "ir_sensor"},
-                              {"text": "microphone_sensor"}
-            , {"text": "MQ2-gas-sensor"}, {"text": "passive_buzzer"}, {"text": "rain_detection_sensor"},
-                              {"text": "vibration-sensor-module-sw-420"}]
-        self.sensors_menu = MDDropdownMenu(
-            callback=self.sensor_adder, items=sensors_menu_items, width_mult=4,
-            caller=self.buildersccreen.sensorsbutton
-        )
-        wires_menu_items = [{"text": "vertical straight wire"},
-                            {"text": "horizontal straight wire"},
-                            {"text": "L shaped wire lower left"},
-                            {"text": "L shaped wire lower right"},
-                            {"text": "L shaped wire upper left"},
-                            {"text": "L shaped wire upper right"},
-                            {"text": "C shaped wire left"},
-                            {"text": "C shaped wire right"},
-                            {"text": "C shaped wire top"},
-                            {"text": "C shaped wire bottom"}
-                            ]
-        self.wires_menu = MDDropdownMenu(
-            callback=self.wire_adder, items=wires_menu_items, width_mult=5,
-            caller=self.buildersccreen.addwiresbutton
-        )
-        basic_equipments_menu_items = [{"text": "breadboard"}]
-        self.basic_equipments_menu = MDDropdownMenu(
-            callback=self.basic_equipments_adder,items=basic_equipments_menu_items, width_mult=4,
-            caller=self.buildersccreen.basiceqbutton
-        )
         return self.screen_manager
 
-    def basic_equipments_adder(self, instance):
-        selected_equipment = instance.text
-        selected_equipment_path = "images/sensors/" + selected_equipment + ".png"
-        img = DraggableImageButtonWithDoubleTouch(source=selected_equipment_path, width=400, size_hint_y=None,
-                                                  size_hint_x=None, height=400)
+    # def save_current_data(self):
+    #     obj = SavedDataManager()
+    #     obj.save_current_object(self.buildersccreen.container)
 
-        self.buildersccreen.container.add_widget(img, 1)
+    def image_adder(self):
 
-    def sensor_adder(self, instance):
-        selected_sensor = instance.text
-        selected_sensor_path = "images/sensors/" + selected_sensor + ".png"
-        img = DraggableImageButtonWithDoubleTouch(source=selected_sensor_path, width=400, size_hint_y=None,
-                                                  size_hint_x=None, height=400)
-
-        self.buildersccreen.container.add_widget(img, -1)
-
-
-    def wire_adder(self,instance):
-        item = instance.text
+        # wimg = DraggableImageButtonWithDoubleTouch(source='images/sensors/arduino.png', width=400, size_hint_y=None,
+        #                                            size_hint_x=None, height=400)
+        # self.buildersccreen.container.add_widget(wimg,10)
         k = WireBase()
-        if item=="vertical straight wire":
-            tobeadded = StraightWireVertical()
-            k.external_container.add_widget(tobeadded)
-        elif item=="horizontal straight wire":
-            tobeadded = StraightWireHorizontal()
-            k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire lower left":
-            tobeadded = ElbowShapedLowerLeftWire()
-            k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire lower right":
-            tobeadded = ElbowShapedLowerRightWire()
-            k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire upper left":
-            tobeadded = ElbowShapedUpperLeftWire()
-            k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire upper right":
-            tobeadded = ElbowShapedUpperRightWire()
-            k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire left":
-            tobeadded = CShapedWireLeft()
-            k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire right":
-            tobeadded = CShapedWireRight()
-            k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire top":
-            tobeadded = CShapedWireTop()
-            k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire bottom":
-            tobeadded = CShapedWireBottom()
-            k.external_container.add_widget(tobeadded)
-
-        self.buildersccreen.container.add_widget(k, 0)
-
+        self.buildersccreen.container.add_widget(k)
         # uiApp.kl = wimg
-
-    def remove_selected_widget(self):
-        print("hi")
-        if isinstance(uiApp.current_selected_widget, DraggableWire):
-
-            self.buildersccreen.container.remove_widget(
-                uiApp.current_selected_widget.parent.parent.parent.parent.parent)  # <<<<--- referring to wirebase class
-        else:
-            self.buildersccreen.container.remove_widget(uiApp.current_selected_widget)
-
-    def yes_clear_page(self):
-        print("gkj")
-        self.buildersccreen.container.clear_widgets()
-
-    def show_alert_dialog(self, title, message):
-        if not self.dialog:
-            self.dialog = MDDialog(
-                title=title,
-
-                text=message,
-                buttons=[
-                    MDFlatButton(
-                        text="CANCEL", text_color=self.theme_cls.primary_color
-                    ),
-                    MDFlatButton(
-                        text="YES", text_color=self.theme_cls.primary_color, on_release=self.yes_clear_page
-                    ),
-                ],
-            )
-        self.dialog.open()
-
-    def color_chooser(self):
-        content = Button(text='Close me!', size_hint_y=0.1)
-        popup = Popup(title="Theme color")
-
-        box = BoxLayout(orientation='vertical')
-        clr_picker = ColorPicker()
-
-        def on_color(instance, value):
-            #self.current_selected_widget.clr.color=instance.color
-            print(instance.color)
-            for i in (self.current_selected_widget.parent.parent).children:
-                for j in i.children:
-                    if isinstance(j,DraggableWire):
-                        child = j.children[0]
-                        child.canvas.before.children[0].rgba = instance.color
-            # child = self.current_selected_widget.children[0]
-            # child.canvas.before.children[0].rgba = instance.color
-
-        clr_picker.bind(color=on_color)
-        box.add_widget(clr_picker)
-        content.bind(on_press=popup.dismiss)
-        box.add_widget(content)
-        popup.add_widget(box)
-        popup.open()
 
 
 LabelBase.register(name='pacifico', fn_regular='fonts/Pacifico/Pacifico-Regular.ttf')

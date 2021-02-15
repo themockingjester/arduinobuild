@@ -2,13 +2,570 @@
 <TooltipMDIconButton@MDFloatingActionButton+MDTooltip>
 <TooltipMDOnlyIconButton@MDIconButton+MDTooltip>
 
+<StraightWireHorizontal>:
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:(None,None)
+        height:10
+        width: 100
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]             #app.left_tray_color
+            RoundedRectangle:
+                radius: [8,8,8,8]
+
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint:(1,None)
+            height:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,8,8,8]
+                            pos: self.parent.pos
+                            size:self.size
+
+<StraightWireVertical>:
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 10
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,8,8,8]
+                            pos: self.parent.pos
+                            size:self.size
+
+<CShapedWireTop>:
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:(None,None)
+        height:40
+        width: 100
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,8,0,0]
+
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint:(1,None)
+            height:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,8,0,0]
+                            pos: self.parent.pos
+                            size:self.size
+        BoxLayout:
+            DraggableWire:
+                size_hint_x:None
+                width:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")
+                        RoundedRectangle:
+                            radius: [0,0,8,8]
+                            pos: self.pos
+                            size:self.size
+            BoxLayout:
+                size_hint:(1,1)
+            DraggableWire:
+                size_hint_x:None
+                width:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,0,8,8]
+                            pos: self.pos
+                            size:self.size
+<CShapedWireBottom>:
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:(None,None)
+        height:40
+        width: 100
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [0,0,8,8]
+
+                size: self.size
+                pos: self.pos
+
+
+        BoxLayout:
+            DraggableWire:
+                size_hint_x:None
+                width:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")
+                        RoundedRectangle:
+                            radius: [8,8,0,0]
+                            pos: self.pos
+                            size:self.size
+            BoxLayout:
+                size_hint:(1,1)
+            DraggableWire:
+                size_hint_x:None
+                width:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,8,0,0]
+                            pos: self.pos
+                            size:self.size
+        BoxLayout:
+            size_hint:(1,None)
+            height:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,0,8,8]
+                            pos: self.parent.pos
+                            size:self.size
+<CShapedWireLeft>:
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 40
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.parent.pos
+                            size:self.size
+        BoxLayout:
+            orientation:"vertical"
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.pos
+                            size:self.size
+            BoxLayout:
+                size_hint:(1,1)
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.pos
+                            size:self.size
+<CShapedWireRight>:
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 40
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation:"vertical"
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.pos
+                            size:self.size
+            BoxLayout:
+                size_hint:(1,1)
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.pos
+                            size:self.size
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.parent.pos
+                            size:self.size
+<ElbowShapedUpperRightWire>:
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 40
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation:"vertical"
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.pos
+                            size:self.size
+            BoxLayout:
+                size_hint:(1,1)
+
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.parent.pos
+                            size:self.size
+
+<ElbowShapedUpperLeftWire>:
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 40
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.parent.pos
+                            size:self.size
+        BoxLayout:
+            orientation:"vertical"
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.pos
+                            size:self.size
+            BoxLayout:
+                size_hint:(1,1)
+<ElbowShapedLowerLeftWire>:
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 40
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.parent.pos
+                            size:self.size
+        BoxLayout:
+            orientation:"vertical"
+
+            BoxLayout:
+                size_hint:(1,1)
+            DraggableWire:
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.pos
+                            size:self.size
+<ElbowShapedLowerRightWire>:
+
+    BoxLayout:
+
+        size_hint:(None,None)
+        height:100
+        width: 40
+
+        canvas.before:
+            Color:
+
+                rgba : [0,0,0,0]
+            RoundedRectangle:
+                radius: [8,0,8,0]
+
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation:"vertical"
+
+            BoxLayout:
+                size_hint:(1,1)
+            DraggableWire:
+
+                size_hint_y:None
+                height:10
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+
+                            rgba : C("#ec4646")                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [8,0,0,8]
+                            pos: self.pos
+                            size:self.size
+
+        BoxLayout:
+            size_hint:(None,1)
+            width:10
+            DraggableWire:
+
+                BoxLayout:
+
+
+                    canvas.before:
+                        Color:
+                            id:color
+
+                            rgba : C("#ec4646")                 #app.left_tray_color                                              #app.theme_cls.bg_normal
+                        RoundedRectangle:
+                            radius: [0,8,8,0]
+                            pos: self.parent.pos
+                            size:self.size
+<TouchableWire>:
+
+
+    drag_rectangle: self.x, self.y, self.width,self.height
+    drag_timeout: 1000000
+    drag_distance: 0
+
+<WireBase>:
+
+    external_container: external_container
+    BoxLayout:
+        id: external_container
+
+
+
+
+
+
 
 <DraggableImageButtonWithDoubleTouch>:
-    # Define the properties for the DragLabel
     drag_rectangle: self.x, self.y, self.width, self.height
     drag_timeout: 10000000
     drag_distance: 0
 <UpperUtilityTray>:
+
     BoxLayout:
 
         size_hint_x: None
@@ -43,6 +600,7 @@
             TooltipMDOnlyIconButton:
                 icon:"format-color-fill"
                 tooltip_text:"pencil color"
+                on_release: app.color_chooser()
             TooltipMDOnlyIconButton:
                 icon:"undo"
                 tooltip_text:"undo"
@@ -62,8 +620,8 @@
                 tooltip_text:"convert to image"
                 on_release: app.convert_to_png(self)
             TooltipMDOnlyIconButton:
-                icon:"lightbulb-on-outline"
-                tooltip_text:"dark mode"
+                icon:"theme-light-dark"
+                tooltip_text:"theme"
                 on_release: app.application_look_settings(self)
             TooltipMDOnlyIconButton:
                 icon:"volume-high"
@@ -72,12 +630,17 @@
                 icon:"pipe-disconnected"
                 tooltip_text:"dislocate image"
                 theme_text_color: "Primary"
-
+                spacing:20
                 on_release: app.dragfunctionality(self)
+
             TooltipMDOnlyIconButton:
                 icon:"rotate-3d-variant"
                 tooltip_text:"image rotation"
                 on_release: app.rotation_enabler(self)
+
+
+
+
 <PencilSizeChanger>:
     BoxLayout:
         size_hint:(None,1)
@@ -110,8 +673,8 @@
 <BuilderWindow>:
     openbutton:openbutton
     container:container
-
-    additionalmodulesbutton:additionalmodulesbutton
+    upperutilitytray: upperutilitytray
+    addwiresbutton:addwiresbutton
     savebutton:savebutton
     basiceqbutton:basiceqbutton
     sensorsbutton:sensorsbutton
@@ -153,20 +716,21 @@
                 LeftTrayButton:
                     id:savebutton
                     text:"Save"
-                    on_release:app.image_adder()
+                    on_release:app.wire_adder()
 
                 LeftTrayButton:
                     id: basiceqbutton
-
-                    text:"[size=30]+[/size] Basic eq."
+                    on_release: app.basic_equipments_menu.open()
+                    text:"Basic eq."
 
                 LeftTrayButton:
                     id: sensorsbutton
-                    text:"[size=30]+[/size] Sensors"
-
+                    text:"Sensors"
+                    on_release: app.sensors_menu.open()
                 LeftTrayButton:
-                    id:additionalmodulesbutton
-                    text:"more modules"
+                    id:addwiresbutton
+                    text:"Wires"
+                    on_release:app.wires_menu.open()
 
 
 
@@ -181,7 +745,71 @@
                     spacing:30
                     BoxLayout:
 
+                    BoxLayout:
+                        orientation:"vertical"
+                        size_hint:(0.3,1)
+
+                        canvas.before:
+                            Color:
+
+                                rgba :  app.upper_utilitytray_color
+                            Line:
+                                width: 1.5
+
+                                rectangle: self.x, self.y, self.width, self.height
+                        AnchorLayout:
+                            padding:[15,30,15,15]
+
+                            TooltipMDOnlyIconButton:
+                                icon:"arrow-expand-vertical"
+                                tooltip_text:"wire vertical dimension"
+                                user_font_size: "35sp"
+                                anchor_x:"center"
+                                anchor_y:"center"
+
+                        BoxLayout:
+
+                            TooltipMDOnlyIconButton:
+                                icon:"plus"
+                                tooltip_text:"increase"
+                                on_release: app.wire_extender_vertically()
+                            TooltipMDOnlyIconButton:
+                                icon:"minus"
+                                tooltip_text:"decrease"
+                                on_release: app.wire_shrinker_vertically()
+                    BoxLayout:
+                        orientation:"vertical"
+                        size_hint:(0.3,1)
+
+                        canvas.before:
+                            Color:
+
+                                rgba :  app.upper_utilitytray_color
+                            Line:
+                                width: 1.5
+
+                                rectangle: self.x, self.y, self.width, self.height
+                        AnchorLayout:
+                            padding:[0,15,0,0]
+
+                            TooltipMDOnlyIconButton:
+                                icon:"arrow-expand-horizontal"
+                                tooltip_text:"wire horizontal dimension"
+                                user_font_size: "35sp"
+                                anchor_x:"center"
+                                anchor_y:"center"
+
+                        BoxLayout:
+                            TooltipMDOnlyIconButton:
+                                icon:"plus"
+                                tooltip_text:"increase"
+                                on_release: app.wire_extender_horizontally()
+                            TooltipMDOnlyIconButton:
+                                icon:"minus"
+                                tooltip_text:"decrease"
+                                on_release: app.wire_shrinker_horizontally()
                     UpperUtilityTray:
+                        id: upperutilitytray
                     MDSpinner:
                         size_hint: None, None
                         size: dp(46), dp(46)
@@ -198,13 +826,14 @@
                         pos_hint: {"center_x": .5, "center_y": .5}
                         tooltip_text: self.icon
                         icon:"pencil"
+                        on_release: app.pencil_drawing_enabler()
                         md_bg_color: C("#70af85")
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"eraser"
                         tooltip_text: self.icon
                         md_bg_color: app.theme_cls.primary_color
-
+                        on_release: app.remove_selected_widget()
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"clipboard-plus"
@@ -215,6 +844,7 @@
                         icon:"delete"
                         tooltip_text: self.icon
                         md_bg_color: C("#f05454")
+                        on_release: app.yes_clear_page()
 
                 BoxLayout:
                     size_hint:(1,1)
@@ -230,11 +860,12 @@
 
                                 rgba : app.workspace_boundary_color
                             Line:
-                                width: 2
+                                width: 6
 
                                 rectangle: self.x, self.y, self.width, self.height
 
                         FloatLayout:
+
 
 
                             size:(self.parent.width,self.parent.height)
@@ -243,6 +874,14 @@
                             size_hint_y: None
 
                             #height: self.minimum_height  #<<<<<<<<<<<<<<<<<<<<
-                            row_default_height: 1600
+                            #row_default_height: 1600
+                            canvas.before:
+                                Color:
+
+                                    rgba :  app.left_tray_color
+                                Rectangle:
+
+                                    pos: self.pos
+                                    size:self.size
 
 
