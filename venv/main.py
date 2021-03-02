@@ -4,8 +4,8 @@ from kivymd.toast import toast
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.button import Button
 from image_processing import ImageProcessing
-from save_content import SaveContent
-from open_file import Open_Saved_File
+from read_write import SaveContent,Open_Saved_File
+#from open_file import Open_Saved_File
 
 from kivy.core.audio import SoundLoader
 from pynput import keyboard
@@ -504,8 +504,8 @@ class uiApp(MDApp):
 
     def open_saved_file(self):
         self.yes_clear_page()
-        o = Open_Saved_File()
-        o.open_from_file(file_name='myfile.pickle')
+        o = Open_Saved_File(DraggableImageButtonWithDoubleTouch,self.buildersccreen)
+        o.open_from_file("myfile.pickle")
 
 
 LabelBase.register(name='pacifico', fn_regular='fonts/Pacifico/Pacifico-Regular.ttf')
