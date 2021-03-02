@@ -639,31 +639,6 @@
                 on_release: app.rotation_enabler(self)
 
 
-
-
-<PencilSizeChanger>:
-    BoxLayout:
-        size_hint:(None,1)
-        width:170
-        canvas.before:
-            Color:
-
-                rgba :  rgba("#FFFFFF")
-            Rectangle:
-
-                pos: self.pos
-                size:self.size
-        MDIconButton:
-            icon:"minus"
-        Label:
-
-            bold:True
-            color: C("#0a043c")
-            text:"Pencil Size:1"
-        MDIconButton:
-            icon:"plus"
-
-
 <LeftTrayButton@MDRaisedButton>:
     pos_hint: {"center_x": 1.5, "center_y": .5}
     markup:True
@@ -711,12 +686,12 @@
                 LeftTrayButton:
                     id: openbutton
                     text:"Open"
-                    on_release: app.menu.open()
+                    on_release: app.open_saved_file()
 
                 LeftTrayButton:
                     id:savebutton
                     text:"Save"
-                    on_release:app.wire_adder()
+                    on_release:app.save_data()
 
                 LeftTrayButton:
                     id: basiceqbutton
@@ -810,16 +785,12 @@
                                 on_release: app.wire_shrinker_horizontally()
                     UpperUtilityTray:
                         id: upperutilitytray
-                    MDSpinner:
-                        size_hint: None, None
-                        size: dp(46), dp(46)
-                        pos_hint: {'center_x': .5, 'center_y': .5}
-                        active: True
-                    MDRoundFlatButton:
-                        text: "Images on Workarea:  1"
-                        pos_hint: {"center_x": .5, "center_y": .5}
-                        theme_text_color: "Custom"
-                        text_color: rgba("#2DA8D8FF")
+
+                    #MDRoundFlatButton:
+                        #text: "Images on Workarea:  1"
+                        #pos_hint: {"center_x": .5, "center_y": .5}
+                        #theme_text_color: "Custom"
+                        #text_color: rgba("#2DA8D8FF")
 
                         #md_bg_color: C("#726a95")
                     TooltipMDIconButton:

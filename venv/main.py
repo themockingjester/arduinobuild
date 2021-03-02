@@ -1,33 +1,29 @@
-import time
-
 from kivy.core.text import LabelBase
-from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivymd.toast import toast
-from PIL import Image as Im
 from kivymd.uix.dialog import MDDialog
 from kivy.uix.button import Button
 from image_processing import ImageProcessing
-# from save_content import SavedDataManager
-# from drag import DragClass
+from save_content import SaveContent
+from open_file import Open_Saved_File
+
 from kivy.core.audio import SoundLoader
 from pynput import keyboard
 from kivy.metrics import sp
-import threading
 from kivy.uix.behaviors import DragBehavior
 from kivy.utils import rgba
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.properties import ListProperty, ObjectProperty
+from kivy.properties import ObjectProperty
 from kivymd.uix.boxlayout import MDBoxLayout, BoxLayout
 from kivymd.uix.button import MDFlatButton
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.uix.image import Image
 from kivymd.uix.behaviors import TouchBehavior
-from kivy.graphics import Color, Ellipse, Line
 from kivy.uix.widget import Widget
 from kivy.uix.colorpicker import ColorPicker
+
+
 
 
 class ImageButtonWithDoubleTouch(Image, TouchBehavior):
@@ -41,8 +37,11 @@ class UpperUtilityTray(BoxLayout):
 class PencilSizeChanger(BoxLayout):
     pass
 
+
 class StraightWireHorizontal(Widget):
     pass
+
+
 class StraightWireVertical(Widget):
     pass
 
@@ -135,6 +134,10 @@ class WireBase(BoxLayout):
 
 
 class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTouch):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.angle = 0
+        self.image = self.source
 
     def on_double_tap(self, instance, *args):
         pass
@@ -147,6 +150,7 @@ class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTou
                 sound.play()
             self.export_to_png("temp/usr/application/temp.png")
             uiApp.current_selected_widget = self
+            print(self.angle)
 
     def on_touch_move(self, touch):
 
@@ -204,8 +208,6 @@ class uiApp(MDApp):
     dragcounter = False
     upper_utilitytray_color = ObjectProperty(rgba("#282828"))
     workspace_boundary_color = ObjectProperty(rgba("#30475e"))
-
-
 
     def page_size_increaser(self, instance):
 
@@ -383,7 +385,7 @@ class uiApp(MDApp):
         )
         basic_equipments_menu_items = [{"text": "breadboard"}]
         self.basic_equipments_menu = MDDropdownMenu(
-            callback=self.basic_equipments_adder,items=basic_equipments_menu_items, width_mult=4,
+            callback=self.basic_equipments_adder, items=basic_equipments_menu_items, width_mult=4,
             caller=self.buildersccreen.basiceqbutton
         )
         return self.screen_manager
@@ -404,38 +406,37 @@ class uiApp(MDApp):
 
         self.buildersccreen.container.add_widget(img, -1)
 
-
-    def wire_adder(self,instance):
+    def wire_adder(self, instance):
         item = instance.text
         k = WireBase()
-        if item=="vertical straight wire":
+        if item == "vertical straight wire":
             tobeadded = StraightWireVertical()
             k.external_container.add_widget(tobeadded)
-        elif item=="horizontal straight wire":
+        elif item == "horizontal straight wire":
             tobeadded = StraightWireHorizontal()
             k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire lower left":
+        elif item == "L shaped wire lower left":
             tobeadded = ElbowShapedLowerLeftWire()
             k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire lower right":
+        elif item == "L shaped wire lower right":
             tobeadded = ElbowShapedLowerRightWire()
             k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire upper left":
+        elif item == "L shaped wire upper left":
             tobeadded = ElbowShapedUpperLeftWire()
             k.external_container.add_widget(tobeadded)
-        elif item=="L shaped wire upper right":
+        elif item == "L shaped wire upper right":
             tobeadded = ElbowShapedUpperRightWire()
             k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire left":
+        elif item == "C shaped wire left":
             tobeadded = CShapedWireLeft()
             k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire right":
+        elif item == "C shaped wire right":
             tobeadded = CShapedWireRight()
             k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire top":
+        elif item == "C shaped wire top":
             tobeadded = CShapedWireTop()
             k.external_container.add_widget(tobeadded)
-        elif item=="C shaped wire bottom":
+        elif item == "C shaped wire bottom":
             tobeadded = CShapedWireBottom()
             k.external_container.add_widget(tobeadded)
 
@@ -473,6 +474,9 @@ class uiApp(MDApp):
             )
         self.dialog.open()
 
+    def save_data(self):
+        o = SaveContent(self.buildersccreen.container, DraggableImageButtonWithDoubleTouch)
+
     def color_chooser(self):
         content = Button(text='Close me!', size_hint_y=0.1)
         popup = Popup(title="Theme color")
@@ -481,11 +485,11 @@ class uiApp(MDApp):
         clr_picker = ColorPicker()
 
         def on_color(instance, value):
-            #self.current_selected_widget.clr.color=instance.color
+            # self.current_selected_widget.clr.color=instance.color
             print(instance.color)
             for i in (self.current_selected_widget.parent.parent).children:
                 for j in i.children:
-                    if isinstance(j,DraggableWire):
+                    if isinstance(j, DraggableWire):
                         child = j.children[0]
                         child.canvas.before.children[0].rgba = instance.color
             # child = self.current_selected_widget.children[0]
@@ -497,6 +501,11 @@ class uiApp(MDApp):
         box.add_widget(content)
         popup.add_widget(box)
         popup.open()
+
+    def open_saved_file(self):
+        self.yes_clear_page()
+        o = Open_Saved_File()
+        o.open_from_file(file_name='myfile.pickle')
 
 
 LabelBase.register(name='pacifico', fn_regular='fonts/Pacifico/Pacifico-Regular.ttf')
