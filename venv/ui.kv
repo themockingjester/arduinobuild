@@ -3,7 +3,9 @@
 <TooltipMDOnlyIconButton@MDIconButton+MDTooltip>
 
 <StraightWireHorizontal>:
+    topmost: topmost
     BoxLayout:
+        id:topmost
         orientation:"vertical"
         size_hint:(None,None)
         height:10
@@ -37,8 +39,9 @@
                             size:self.size
 
 <StraightWireVertical>:
+    topmost: topmost
     BoxLayout:
-
+        id:topmost
         size_hint:(None,None)
         height:100
         width: 10
@@ -71,7 +74,9 @@
                             size:self.size
 
 <CShapedWireTop>:
+    topmost: topmost
     BoxLayout:
+        id:topmost
         orientation:"vertical"
         size_hint:(None,None)
         height:40
@@ -136,7 +141,9 @@
                             pos: self.pos
                             size:self.size
 <CShapedWireBottom>:
+    topmost: topmost
     BoxLayout:
+        id:topmost
         orientation:"vertical"
         size_hint:(None,None)
         height:40
@@ -201,8 +208,9 @@
                             pos: self.parent.pos
                             size:self.size
 <CShapedWireLeft>:
+    topmost: topmost
     BoxLayout:
-
+        id:topmost
         size_hint:(None,None)
         height:100
         width: 40
@@ -266,8 +274,9 @@
                             pos: self.pos
                             size:self.size
 <CShapedWireRight>:
+    topmost: topmost
     BoxLayout:
-
+        id:topmost
         size_hint:(None,None)
         height:100
         width: 40
@@ -331,7 +340,9 @@
                             pos: self.parent.pos
                             size:self.size
 <ElbowShapedUpperRightWire>:
+    topmost: topmost
     BoxLayout:
+        id:topmost
 
         size_hint:(None,None)
         height:100
@@ -384,8 +395,9 @@
                             size:self.size
 
 <ElbowShapedUpperLeftWire>:
+    topmost: topmost
     BoxLayout:
-
+        id: topmost
         size_hint:(None,None)
         height:100
         width: 40
@@ -435,8 +447,10 @@
             BoxLayout:
                 size_hint:(1,1)
 <ElbowShapedLowerLeftWire>:
-    BoxLayout:
+    topmost: topmost
 
+    BoxLayout:
+        id:topmost
         size_hint:(None,None)
         height:100
         width: 40
@@ -458,7 +472,7 @@
 
                 BoxLayout:
 
-
+                    height: 20
                     canvas.before:
                         Color:
 
@@ -473,6 +487,7 @@
             BoxLayout:
                 size_hint:(1,1)
             DraggableWire:
+
                 size_hint_y:None
                 height:10
                 BoxLayout:
@@ -487,9 +502,9 @@
                             pos: self.pos
                             size:self.size
 <ElbowShapedLowerRightWire>:
-
+    topmost: topmost
     BoxLayout:
-
+        id: topmost
         size_hint:(None,None)
         height:100
         width: 40
@@ -582,7 +597,7 @@
                 rectangle: self.x, self.y, self.width, self.height
         GridLayout:
             rows:2
-            cols:8
+            cols:4
             row_force_default: True
             row_default_height: 45
             size_hint_x: None
@@ -599,14 +614,9 @@
                 tooltip_text:"expand page vertically"
             TooltipMDOnlyIconButton:
                 icon:"format-color-fill"
-                tooltip_text:"pencil color"
+                tooltip_text:"wire color"
                 on_release: app.color_chooser()
-            TooltipMDOnlyIconButton:
-                icon:"undo"
-                tooltip_text:"undo"
-            TooltipMDOnlyIconButton:
-                icon:"redo"
-                tooltip_text:"redo"
+
             TooltipMDOnlyIconButton:
                 icon:"rotate-right"
                 tooltip_text:"rotate image right"
@@ -623,9 +633,7 @@
                 icon:"theme-light-dark"
                 tooltip_text:"theme"
                 on_release: app.application_look_settings(self)
-            TooltipMDOnlyIconButton:
-                icon:"volume-high"
-                tooltip_text:"dark mode"
+
             TooltipMDOnlyIconButton:
                 icon:"pipe-disconnected"
                 tooltip_text:"dislocate image"
@@ -795,9 +803,9 @@
                         #md_bg_color: C("#726a95")
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
-                        tooltip_text: self.icon
-                        icon:"pencil"
-                        on_release: app.pencil_drawing_enabler()
+                        tooltip_text: "clear selected item"
+                        icon:"tray-remove"
+                        on_release: app.clear_selected_widget()
                         md_bg_color: C("#70af85")
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
@@ -809,6 +817,7 @@
                         pos_hint: {"center_x": .5, "center_y": .5}
                         icon:"clipboard-plus"
                         tooltip_text: "new page"
+                        on_release: app.new_page()
                         md_bg_color: app.theme_cls.primary_color
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}

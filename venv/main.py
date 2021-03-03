@@ -5,8 +5,6 @@ from kivymd.uix.dialog import MDDialog
 from kivy.uix.button import Button
 from image_processing import ImageProcessing
 from read_write import SaveContent,Open_Saved_File
-#from open_file import Open_Saved_File
-
 from kivy.core.audio import SoundLoader
 from pynput import keyboard
 from kivy.metrics import sp
@@ -34,48 +32,45 @@ class UpperUtilityTray(BoxLayout):
     extend_wire = ObjectProperty(None)
 
 
-class PencilSizeChanger(BoxLayout):
-    pass
 
 
 class StraightWireHorizontal(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class StraightWireVertical(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class CShapedWireTop(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class CShapedWireBottom(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class CShapedWireLeft(Widget):
-    pass
-
+    topmost = ObjectProperty(None)
 
 class CShapedWireRight(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class ElbowShapedUpperRightWire(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class ElbowShapedUpperLeftWire(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class ElbowShapedLowerLeftWire(Widget):
-    pass
+    topmost = ObjectProperty(None)
 
 
 class ElbowShapedLowerRightWire(Widget):
-    clr = ObjectProperty(None)
+    topmost = ObjectProperty(None)
 
 
 class TouchableWire(BoxLayout, TouchBehavior):
@@ -201,7 +196,7 @@ class uiApp(MDApp):
 
     wireinitialheight = 40
     wireinitialwidth = 100
-    need_to_draw_with_pencil = False
+
     current_selected_widget = None
     left_tray_color = ObjectProperty(rgba("#282828"))
     bar_color = ObjectProperty(rgba("#282828"))
@@ -243,7 +238,7 @@ class uiApp(MDApp):
             uiApp.current_selected_widget.parent.parent.width = currentwidth
 
     def application_look_settings(self, instance):
-        pencil_button_color_values = ["#70af85", "#70af85"]
+        clear_selected_item_button_color_values = ["#70af85", "#70af85"]
         delete_button_color_values = ["#f05454", "#f05454"]
         workspace_boundary_color_values = ["#30475e", "#D6ED17FF"]
         left_tray_buttons_color_values = ["#00bcd4", "#f88f01"]
@@ -269,7 +264,7 @@ class uiApp(MDApp):
                 instance.text_color = self.upper_utilitytray_color
             except:
                 pass
-        self.pencil_button_color = pencil_button_color_values[self.mode]
+        self.clear_selected_item_button_color = clear_selected_item_button_color_values[self.mode]
         self.delete_button_color = delete_button_color_values[self.mode]
 
         self.buildersccreen.openbutton.md_bg_color = rgba(left_tray_buttons_color_values[self.mode])
@@ -331,11 +326,6 @@ class uiApp(MDApp):
         else:
             toast("you havn't selected object")
 
-    def pencil_drawing_enabler(self):
-        if uiApp.need_to_draw_with_pencil == False:
-            uiApp.need_to_draw_with_pencil = True
-        else:
-            uiApp.need_to_draw_with_pencil = False
 
     def key_tracker(self):
         with keyboard.Listener(on_press=self.on_press) as listener:
@@ -445,18 +435,24 @@ class uiApp(MDApp):
         # uiApp.kl = wimg
 
     def remove_selected_widget(self):
-        print("hi")
-        if isinstance(uiApp.current_selected_widget, DraggableWire):
+        if uiApp.current_selected_widget !=None:
+            if isinstance(uiApp.current_selected_widget, DraggableWire):
 
-            self.buildersccreen.container.remove_widget(
-                uiApp.current_selected_widget.parent.parent.parent.parent.parent)  # <<<<--- referring to wirebase class
+                self.buildersccreen.container.remove_widget(
+                    uiApp.current_selected_widget.parent.parent.parent.parent.parent)  # <<<<--- referring to wirebase class
+            else:
+                self.buildersccreen.container.remove_widget(uiApp.current_selected_widget)
         else:
-            self.buildersccreen.container.remove_widget(uiApp.current_selected_widget)
-
+            toast("select a item first!")
+    def clear_selected_widget(self):
+        uiApp.current_selected_widget = None
     def yes_clear_page(self):
-        print("gkj")
-        self.buildersccreen.container.clear_widgets()
 
+        self.buildersccreen.container.clear_widgets()
+        uiApp.current_selected_widget = None
+    def new_page(self):
+        self.buildersccreen.container.clear_widgets()
+        uiApp.current_selected_widget = None
     def show_alert_dialog(self, title, message):
         if not self.dialog:
             self.dialog = MDDialog(
@@ -475,9 +471,15 @@ class uiApp(MDApp):
         self.dialog.open()
 
     def save_data(self):
-        o = SaveContent(self.buildersccreen.container, DraggableImageButtonWithDoubleTouch)
+        o = SaveContent(self.buildersccreen.container, DraggableImageButtonWithDoubleTouch,DraggableWire)
 
     def color_chooser(self):
+        if uiApp.current_selected_widget == None:
+            toast("select a wire first")
+            return
+
+
+
         content = Button(text='Close me!', size_hint_y=0.1)
         popup = Popup(title="Theme color")
 
@@ -487,7 +489,7 @@ class uiApp(MDApp):
         def on_color(instance, value):
             # self.current_selected_widget.clr.color=instance.color
             print(instance.color)
-            for i in (self.current_selected_widget.parent.parent).children:
+            for i in (uiApp.current_selected_widget.parent.parent).children:
                 for j in i.children:
                     if isinstance(j, DraggableWire):
                         child = j.children[0]
@@ -504,8 +506,9 @@ class uiApp(MDApp):
 
     def open_saved_file(self):
         self.yes_clear_page()
-        o = Open_Saved_File(DraggableImageButtonWithDoubleTouch,self.buildersccreen)
-        o.open_from_file("myfile.pickle")
+        wires=[StraightWireVertical,StraightWireVertical,ElbowShapedLowerLeftWire,ElbowShapedUpperRightWire,ElbowShapedUpperLeftWire,ElbowShapedLowerRightWire,CShapedWireBottom,CShapedWireRight,CShapedWireLeft,CShapedWireTop]
+        o = Open_Saved_File(DraggableImageButtonWithDoubleTouch,self.buildersccreen,wires,WireBase,DraggableWire)
+        o.open_from_file("myfile.ab")
 
 
 LabelBase.register(name='pacifico', fn_regular='fonts/Pacifico/Pacifico-Regular.ttf')
