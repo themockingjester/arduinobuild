@@ -5,10 +5,11 @@ from kivymd.uix.dialog import MDDialog
 from kivy.uix.button import Button
 from image_processing import ImageProcessing
 from read_write import SaveContent,Open_Saved_File
+from kivymd.uix.dialog import MDDialog
 from kivy.core.audio import SoundLoader
 from pynput import keyboard
 from kivy.metrics import sp
-from kivy.uix.behaviors import DragBehavior
+from kivy.uix.behaviors import DragBehavior, ButtonBehavior
 from kivy.utils import rgba
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -26,7 +27,8 @@ from kivy.uix.colorpicker import ColorPicker
 
 class ImageButtonWithDoubleTouch(Image, TouchBehavior):
     pass
-
+class ImageButton(ButtonBehavior, Image):
+    pass
 
 class UpperUtilityTray(BoxLayout):
     extend_wire = ObjectProperty(None)
@@ -105,7 +107,7 @@ class DraggableWire(DragBehavior, TouchableWire):
             ud['mode'] = mode
         if mode == 'drag':
             if uiApp.dragcounter == True:  # my logic only this line
-                print("f")
+
                 self.parent.parent.x += touch.dx
                 self.parent.parent.y += touch.dy
 
@@ -120,9 +122,11 @@ class DraggableWire(DragBehavior, TouchableWire):
                 sound.play()
 
             uiApp.current_selected_widget = self
-            print(uiApp.current_selected_widget)
 
+            # print(uiApp.current_selected_widget)
 
+class SaveWindow(BoxLayout):
+    file_name = ObjectProperty(None)
 class WireBase(BoxLayout):
     cwire = ObjectProperty(None)
     external_container = ObjectProperty(None)
@@ -138,14 +142,13 @@ class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTou
         pass
 
     def on_long_touch(self, touch, *args):
-        print(isinstance(self, DraggableImageButtonWithDoubleTouch))
+        # print(isinstance(self, DraggableImageButtonWithDoubleTouch))
         if uiApp.dragcounter == False:
             sound = SoundLoader.load('sounds/button.wav')
             if sound:
                 sound.play()
             self.export_to_png("temp/usr/application/temp.png")
             uiApp.current_selected_widget = self
-            print(self.angle)
 
     def on_touch_move(self, touch):
 
@@ -181,6 +184,7 @@ class DraggableImageButtonWithDoubleTouch(DragBehavior, ImageButtonWithDoubleTou
 
 
 class BuilderWindow(MDBoxLayout):
+
     openbutton = ObjectProperty(None)
     upperutilitytray = ObjectProperty(None)
     sensorsbutton = ObjectProperty(None)
@@ -190,7 +194,8 @@ class BuilderWindow(MDBoxLayout):
     addwiresbutton = ObjectProperty(None)
     commonid = ObjectProperty(None)
 
-
+class FileLoader(BoxLayout):
+    filechooser = ObjectProperty(None)
 class uiApp(MDApp):
     dialog = None
 
@@ -198,6 +203,7 @@ class uiApp(MDApp):
     wireinitialwidth = 100
 
     current_selected_widget = None
+
     left_tray_color = ObjectProperty(rgba("#282828"))
     bar_color = ObjectProperty(rgba("#282828"))
     dragcounter = False
@@ -307,6 +313,7 @@ class uiApp(MDApp):
                 else:
                     if uiApp.current_selected_widget != None:
                         uiApp.current_selected_widget = None
+
             else:
                 pass
         else:
@@ -321,6 +328,7 @@ class uiApp(MDApp):
                 else:
                     if uiApp.current_selected_widget != None:
                         uiApp.current_selected_widget = None
+
             else:
                 pass
         else:
@@ -333,7 +341,7 @@ class uiApp(MDApp):
 
     def on_press(self, key):
         uiApp.current_key = key
-        print(key)
+
 
     def build(self):
 
@@ -348,6 +356,17 @@ class uiApp(MDApp):
         screen = Screen(name='builderscreen')
         screen.add_widget(self.buildersccreen)
         self.screen_manager.add_widget(screen)
+
+        self.fileloaderscreen = FileLoader()
+        screen = Screen(name='fileloaderscreen')
+        screen.add_widget(self.fileloaderscreen)
+        self.screen_manager.add_widget(screen)
+
+        self.savescreen = SaveWindow()
+        screen = Screen(name='savescreen')
+        screen.add_widget(self.savescreen)
+        self.screen_manager.add_widget(screen)
+
         self.application_look_settings(None)
 
         sensors_menu_items = [{"text": "arduino"}, {"text": "HC-SR04-Ultrasonic-Sensor"}, {"text": "ir_sensor"},
@@ -446,13 +465,16 @@ class uiApp(MDApp):
             toast("select a item first!")
     def clear_selected_widget(self):
         uiApp.current_selected_widget = None
+
     def yes_clear_page(self):
 
         self.buildersccreen.container.clear_widgets()
         uiApp.current_selected_widget = None
+
     def new_page(self):
         self.buildersccreen.container.clear_widgets()
         uiApp.current_selected_widget = None
+
     def show_alert_dialog(self, title, message):
         if not self.dialog:
             self.dialog = MDDialog(
@@ -471,7 +493,8 @@ class uiApp(MDApp):
         self.dialog.open()
 
     def save_data(self):
-        o = SaveContent(self.buildersccreen.container, DraggableImageButtonWithDoubleTouch,DraggableWire)
+        self.mainscreen_to_savescreen()
+
 
     def color_chooser(self):
         if uiApp.current_selected_widget == None:
@@ -488,7 +511,7 @@ class uiApp(MDApp):
 
         def on_color(instance, value):
             # self.current_selected_widget.clr.color=instance.color
-            print(instance.color)
+
             for i in (uiApp.current_selected_widget.parent.parent).children:
                 for j in i.children:
                     if isinstance(j, DraggableWire):
@@ -503,12 +526,49 @@ class uiApp(MDApp):
         box.add_widget(content)
         popup.add_widget(box)
         popup.open()
+    def mainscreen_to_savescreen(self):
+        self.screen_manager.transition.direction = 'right'
+        self.screen_manager.current = 'savescreen'
+    def savescreen_to_mainscreen(self):
+        self.screen_manager.transition.direction = 'left'
+        self.screen_manager.current = 'builderscreen'
+    def mainscreen_to_fileloaderscreen(self):
+        self.screen_manager.transition.direction = 'left'
+        self.screen_manager.current = 'fileloaderscreen'
+    def fileloaderscreen_to_mainscreen(self):
+        self.screen_manager.transition.direction = 'right'
+        self.screen_manager.current = 'builderscreen'
 
+    def clicked_done_at_savewindow(self):
+        file = str(self.savescreen.file_name.text)
+        file = file.strip()
+        if file=="":
+            toast("Please enter valid file name")
+            return
+        if str(self.savescreen.file_name.text).endswith(".aby"):
+            filename = str(self.savescreen.file_name.text)
+            o = SaveContent(self.buildersccreen.container, DraggableImageButtonWithDoubleTouch, DraggableWire,filename)
+        else:
+            filename = str(self.savescreen.file_name.text)+".aby"
+            o = SaveContent(self.buildersccreen.container, DraggableImageButtonWithDoubleTouch, DraggableWire, filename)
+        self.savescreen_to_mainscreen()
     def open_saved_file(self):
-        self.yes_clear_page()
-        wires=[StraightWireVertical,StraightWireVertical,ElbowShapedLowerLeftWire,ElbowShapedUpperRightWire,ElbowShapedUpperLeftWire,ElbowShapedLowerRightWire,CShapedWireBottom,CShapedWireRight,CShapedWireLeft,CShapedWireTop]
-        o = Open_Saved_File(DraggableImageButtonWithDoubleTouch,self.buildersccreen,wires,WireBase,DraggableWire)
-        o.open_from_file("myfile.ab")
+        self.mainscreen_to_fileloaderscreen()
+
+    def load(self, path, filename):
+
+
+        self.fileloaderscreen_to_mainscreen()
+        self.new_page()
+        wires = [StraightWireVertical, StraightWireVertical, ElbowShapedLowerLeftWire, ElbowShapedUpperRightWire,
+                 ElbowShapedUpperLeftWire, ElbowShapedLowerRightWire, CShapedWireBottom, CShapedWireRight,
+                 CShapedWireLeft, CShapedWireTop]
+        o = Open_Saved_File(DraggableImageButtonWithDoubleTouch, self.buildersccreen, wires, WireBase, DraggableWire)
+        if filename[0].endswith(".aby"):
+
+            o.open_from_file(filename[0])
+        else:
+            toast("select files having .aby extension")
 
 
 LabelBase.register(name='pacifico', fn_regular='fonts/Pacifico/Pacifico-Regular.ttf')

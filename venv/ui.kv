@@ -654,6 +654,7 @@
     font_size:15
     size_hint:(2.5,0.1)
 <BuilderWindow>:
+
     openbutton:openbutton
     container:container
     upperutilitytray: upperutilitytray
@@ -794,13 +795,7 @@
                     UpperUtilityTray:
                         id: upperutilitytray
 
-                    #MDRoundFlatButton:
-                        #text: "Images on Workarea:  1"
-                        #pos_hint: {"center_x": .5, "center_y": .5}
-                        #theme_text_color: "Custom"
-                        #text_color: rgba("#2DA8D8FF")
 
-                        #md_bg_color: C("#726a95")
                     TooltipMDIconButton:
                         pos_hint: {"center_x": .5, "center_y": .5}
                         tooltip_text: "clear selected item"
@@ -864,4 +859,131 @@
                                     pos: self.pos
                                     size:self.size
 
+<FileLoader>:
+    filechooser: filechooser
+
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        canvas.before:
+            Color:
+                rgba : C('#454545')
+            Rectangle:
+                pos: self.pos
+                size:self.size
+        FileChooserIconView:
+
+            id: filechooser
+            path : '/'
+            multiselect: False
+            show_hidden:True
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release:app.fileloaderscreen_to_mainscreen()
+
+            Button:
+                text: "Load"
+                on_release: app.load(filechooser.path, filechooser.selection)
+<SaveWindow>:
+    file_name: file_name
+    BoxLayout:
+
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+
+                rgba :  rgba("#B0B0B0")
+            Rectangle:
+
+                pos: self.pos
+                size:self.size
+
+
+
+
+        BoxLayout:
+            orientation:"vertical"
+            size_hint:(1,0.1)
+            BoxLayout:
+
+                canvas.before:
+                    Color:
+
+                        rgba :  rgba("#282828")
+                    Rectangle:
+
+                        pos: self.pos
+                        size:self.size
+                BoxLayout:
+                    size_hint:(0.1,1)
+                    orientation:"vertical"
+                    BoxLayout:
+                        size_hint:(1,0.4)
+                    BoxLayout:
+
+                        ImageButton:
+                            size_hint:(0.2,1)
+                            source:"images/application/back.png"
+                            on_press:app.savescreen_to_mainscreen()
+                        BoxLayout:
+                            size_hint:(1,1)
+                    BoxLayout:
+                        size_hint:(1,0.4)
+
+                BoxLayout:
+                    size_hint:(0.1,1)
+
+        BoxLayout:
+            size_hint:(1,0.9)
+            BoxLayout:
+                size_hint:(0.3,1)
+            BoxLayout:
+                orientation:"vertical"
+                BoxLayout:
+                    size_hint:(1,0.2)
+                MDCard:
+                    padding:60
+                    elevation:1010
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    md_bg_color: C('#FFE338')
+                    BoxLayout:
+
+                        BoxLayout:
+
+                            ImageButton:
+                                source:"images/application/save.png"
+                        BoxLayout:
+                            orientation:"vertical"
+
+
+                            BoxLayout:
+                                size_hint:(1,0.3)
+
+                            MDTextField:
+                                id: file_name
+                                hint_text:"Enter file name"
+                                helper_text: "Either don't add any extension or use .aby as extension"
+                                helper_text_mode: "on_focus"
+
+                            BoxLayout:
+                                size_hint:(1,0.2)
+                            BoxLayout:
+                                size_hint:(1,0.1)
+                                BoxLayout:
+                                MDFillRoundFlatButton:
+                                    text:"Done"
+                                    on_press:app.clicked_done_at_savewindow()
+                                    md_bg_color: app.theme_cls.primary_dark
+                                BoxLayout:
+                            BoxLayout:
+                                size_hint:(1,0.4)
+                BoxLayout:
+                    size_hint:(1,0.2)
+            BoxLayout:
+                size_hint:(0.3,1)
 

@@ -30,7 +30,7 @@ class ImageProcessing():
         transposed.save("temp/usr/application/temp.png")
         self.Img_Obj.source = "temp/usr/application/temp.png"
         self.Img_Obj.reload()
-        print("sensor image angle is "+str(self.Img_Obj.angle))
+        # print("sensor image angle is "+str(self.Img_Obj.angle))
 
 
 
@@ -43,4 +43,4 @@ class ImageProcessing():
         transposed.save("temp/usr/application/temp.png")
         self.Img_Obj.source = "temp/usr/application/temp.png"
         self.Img_Obj.reload()
-        print("sensor image angle is " + str(self.Img_Obj.angle))
+        # print("sensor image angle is " + str(self.Img_Obj.angle))

@@ -51,7 +51,7 @@ class Open_Saved_File():
                     x = x
                     y = pos[1].strip()
                     y = y
-                    print("dekho")
+
                     for j in tobeadded.topmost.children:
                         for u in j.children:
                             if isinstance(u, self.DraggableWire):
@@ -67,7 +67,7 @@ class Open_Saved_File():
                 self.where_to_add.container.add_widget(k, 0)
 
 class SaveContent():
-    def __init__(self,obj1,DraggableImageButtonWithDoubleTouch,DraggableWire):        #getting class frrom main.py
+    def __init__(self,obj1,DraggableImageButtonWithDoubleTouch,DraggableWire,filename):        #getting class frrom main.py
         self.parentobj = obj1
         widgets_counter = 0
         dic = {}
@@ -93,7 +93,7 @@ class SaveContent():
                                 for u in j.children:
                                     if isinstance(u,DraggableWire):
                                         color=u.children[0].canvas.before.children[0].rgba
-                                        print("hi")
+
                                         dic[widgets_counter] = [width_of_container,height_of_container,color,str(type(j.parent.parent).__name__),str(pos_of_container)]             #j.parent.parent means which type of wire wheather straight wire elbowshapedwire etc
                                         flag = True
                                         break
@@ -106,9 +106,9 @@ class SaveContent():
 
                     widgets_counter += 1
 
-            with open('myfile.ab', 'wb') as handle:
+            with open(filename, 'wb') as handle:
                 pickle.dump(dic, handle, protocol=pickle.HIGHEST_PROTOCOL)
-            with open('myfile.ab', 'rb') as handle:
+            with open(filename, 'rb') as handle:
                 b = pickle.load(handle)
 
                 # print(b)
