@@ -1,11 +1,14 @@
 # arduinobuild
 this is an application which can help you to build your arduino circuit!!
-
 <br>
 ## Features of this application
+<br>
 * helpful in building large circuits
+<br>
 * circuits can be saved and user can work on them later
+<br>
 * circuits can be export as image
+<br>
 * has DarkMode
 
 ### Have a look over it<br>
